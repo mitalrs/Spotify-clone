@@ -17,6 +17,16 @@ document.addEventListener("DOMContentLoaded", ()=>{
 window.addEventListener("load", ()=>{
     const accessToken = localStrorage.getItem(ACCESS_TOKEN_KEY);
     if(accessToken){
-        window.location.href = "http://location"
+        window.location.href = `${APP_URL}/dashboard/dashboard.html`;
+    }
+
+
+    if(window.opener && !window.opener.closeed){
+        window.focus();
+        if(window.location.href.includes("error")){
+            window.close();
+        }
+
+        console.log(window.location.hash);
     }
 })
