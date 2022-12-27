@@ -14,6 +14,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
     loginButton.addEventListener("click", authorizeUser);
 })
 
+window.setItemsInLocalStorage = ({accessToken, tokenType, expiresin})=>{
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("tokenType", tokenType);
+    localStorage.setItem("expiresIn", expiresin);
+}
+
 window.addEventListener("load", ()=>{
     const accessToken = localStrorage.getItem(ACCESS_TOKEN_KEY);
     if(accessToken){
@@ -34,5 +40,11 @@ window.addEventListener("load", ()=>{
         const accessToken = searchParams.get("#access_token");
         const tokenType = searchParams.get("token_type");
         const expiresin = searchParams.get("expires_in");
+        if(accessToken){
+            window.close();
+            window.opener.setItemsInLocalStorage({accessToken, tokenType, expiresin});
+        }else{
+            window.close();
+        }
     }
 })
