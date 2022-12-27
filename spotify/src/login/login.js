@@ -21,12 +21,18 @@ window.addEventListener("load", ()=>{
     }
 
 
-    if(window.opener && !window.opener.closeed){
+    if(window.opener && !window.opener.closed){
         window.focus();
         if(window.location.href.includes("error")){
             window.close();
         }
 
-        console.log(window.location.hash);
+        // "#access_token=BQBQWgjT5IyXTi5mtQ6XYPm_R34KFKaFdrb1j1TgEtLYxso-gd5Zn0MGNjUTkSlZlVAwwp16RD2BQqAUZ0M1yKb-8QpHoMQ_B4tajNeEz9HAbwp6oeKCvRD_PcdfCq4N7Di0eExbsQvWF3D9NljYdKhVUDMDzvK0MYiCbMcU7gUyP7Yf0CIiiB0tCAZmqO5rtioxR6dpsDbmK3V4ZrXB3dmiBSzUbIFo_Z77Jg&token_type=Bearer&expires_in=3600"
+        // console.log(window.location.hash);
+        const {hash} = window.location;
+        const searchParams = new URLSearchParams(hash);
+        const accessToken = searchParams.get("#access_token");
+        const tokenType = searchParams.get("token_type");
+        const expiresin = searchParams.get("expires_in");
     }
 })
