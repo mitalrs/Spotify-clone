@@ -18,6 +18,7 @@ window.setItemsInLocalStorage = ({accessToken, tokenType, expiresin})=>{
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("tokenType", tokenType);
     localStorage.setItem("expiresIn", expiresin);
+    window.location.href = APP_URL;
 }
 
 window.addEventListener("load", ()=>{
