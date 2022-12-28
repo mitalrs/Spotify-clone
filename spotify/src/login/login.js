@@ -21,13 +21,14 @@ window.setItemsInLocalStorage = ({accessToken, tokenType, expiresin})=>{
 }
 
 window.addEventListener("load", ()=>{
-    const accessToken = localStrorage.getItem(ACCESS_TOKEN_KEY);
+    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     if(accessToken){
         window.location.href = `${APP_URL}/dashboard/dashboard.html`;
     }
 
 
-    if(window.opener && !window.opener.closed){
+    if(window.opener !==null && !window.opener.closed){
+        alert("inside opener");
         window.focus();
         if(window.location.href.includes("error")){
             window.close();
@@ -36,13 +37,14 @@ window.addEventListener("load", ()=>{
         // "#access_token=BQBQWgjT5IyXTi5mtQ6XYPm_R34KFKaFdrb1j1TgEtLYxso-gd5Zn0MGNjUTkSlZlVAwwp16RD2BQqAUZ0M1yKb-8QpHoMQ_B4tajNeEz9HAbwp6oeKCvRD_PcdfCq4N7Di0eExbsQvWF3D9NljYdKhVUDMDzvK0MYiCbMcU7gUyP7Yf0CIiiB0tCAZmqO5rtioxR6dpsDbmK3V4ZrXB3dmiBSzUbIFo_Z77Jg&token_type=Bearer&expires_in=3600"
         // console.log(window.location.hash);
         const {hash} = window.location;
+        console.log(hash)
         const searchParams = new URLSearchParams(hash);
         const accessToken = searchParams.get("#access_token");
         const tokenType = searchParams.get("token_type");
         const expiresin = searchParams.get("expires_in");
         if(accessToken){
             window.close();
-            window.opener.setItemsInLocalStorage({accessToken, tokenType, expiresin});
+            window.opener.setItemsInLocalStorage({ accessToken, tokenType, expiresin });
         }else{
             window.close();
         }
