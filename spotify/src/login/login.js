@@ -28,7 +28,7 @@ window.addEventListener("load", ()=>{
 
 
     if(window.opener !==null && !window.opener.closed){
-        alert("inside opener");
+        // alert("inside opener");
         window.focus();
         if(window.location.href.includes("error")){
             window.close();
