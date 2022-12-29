@@ -1,7 +1,7 @@
 import { ACCESS_TOKEN, EXPIRES_IN, TOKEN_TYPE } from "../comman";
 
-const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 // const CLIENT_ID = "19f033cc2db7431f9de61a310e7704bf";
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const REDIRECT_URI = "http://localhost:3000/login/login.html"
 const APP_URL = "http://localhost:3000";
 const scopes = "user-top-read user-follow-read playlist-read-private user-library-read";
