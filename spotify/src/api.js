@@ -13,9 +13,17 @@ const getAccessToken = () =>{
     }
 }
 
-const fetchRequest = (endpoint) =>{
+const createAPIConfig = ({accessToken, tokenType}, method="GET")=>{
+    return {
+        headers: {
+            Authorization: `${tokenType} ${accessToken}`
+        },
+        method
+    }
+}
+
+export const fetchRequest = async (endpoint) =>{
     const url = `${BASE_API_URL}/${endpoint}`;
-    fetch(url,{
-        headers
-    })
+    const result = await fetch(url, createAPIConfig(getAccessToken()));
+    return result.json();
 } 
