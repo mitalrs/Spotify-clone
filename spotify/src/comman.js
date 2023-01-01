@@ -8,6 +8,8 @@ export const ENDPOINT = {
 }
 
 export const logout = ()=>{
+    console.log("logout")
+
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem(EXPIRES_IN);
     localStorage.removeItem(TOKEN_TYPE);
