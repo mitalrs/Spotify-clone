@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
     document.addEventListener("click", ()=>{
         const profileMenu = document.querySelector("#profile-menu")
-        if(profileMenu.classList.contains("hidden")){
+        if(!profileMenu.classList.contains("hidden")){
             profileMenu.classList.add("hidden");
         }
     })
