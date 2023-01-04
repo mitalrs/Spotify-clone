@@ -1,13 +1,14 @@
 import { fetchRequest } from "../api";
 import { ENDPOINT, logout } from "../comman";
+// console.log(logout())
 
 
 const onProfileClick = (event)=>{
     event.stopPropagation();
     const profileMenu = document.querySelector("#profile-menu")
     profileMenu.classList.toggle("hidden");
-    if(profileMenu.classList.contains("hidden")){
-        profileMenu.querySelector("li#logout").addEventListener("click", logout)
+    if(!profileMenu.classList.contains("hidden")){
+        document.getElementById("logout").addEventListener("click", logout)
     }
 }
 
