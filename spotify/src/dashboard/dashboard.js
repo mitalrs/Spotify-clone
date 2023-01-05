@@ -8,7 +8,7 @@ const onProfileClick = (event)=>{
     const profileMenu = document.querySelector("#profile-menu")
     profileMenu.classList.toggle("hidden");
     if(!profileMenu.classList.contains("hidden")){
-        document.getElementById("logout").addEventListener("click", logout)
+        profileMenu.querySelector("li#logout").addEventListener("click", logout)
     }
 }
 
@@ -36,10 +36,14 @@ const loadUserProfile = async () => {
     diplayNameElement.textContent = diplayName;
 }
 
-
+const loadfeaturedPlaylist = async ()=>{
+    const featuredPlaylist = await fetchRequest(ENDPOINT.featuredPlaylist) 
+    console.log(featuredPlaylist)
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
+    loadfeaturedPlaylist();
     document.addEventListener("click", ()=>{
         const profileMenu = document.querySelector("#profile-menu")
         if(!profileMenu.classList.contains("hidden")){
