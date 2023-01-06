@@ -1,5 +1,5 @@
 import { fetchRequest } from "../api";
-import { ENDPOINT, logout } from "../comman";
+import { ENDPOINT, logout, SECTION, SECTIONTYPE } from "../comman";
 // console.log(logout())
 
 
@@ -38,6 +38,9 @@ const loadUserProfile = async () => {
 
 const onPlaylistItemClicked = (event)=>{
     console.log(event.target.parentNode);
+    const section = { type: SECTIONTYPE.PLAYLIST }
+    history.pushState(section,"","playlist");
+    loadSection(section);
 }
 
 const loadPlaylist = async (endpoint, elementId)=>{
@@ -85,8 +88,22 @@ const fillContentForDashboard = ()=>{
     pageontaint.innerHTML = innerHTML;
 }
 
+const loadSection = (section)=>{
+    if(section.type === SECTIONTYPE.DASHBOARD){
+        fillContentForDashboard();
+        loadPlaylist();
+    }else{
+        //load the element for playlist
+        const pageontaint = document.querySelector("#page-containt");
+        pageontaint.innerHTML = "playlist to be loaded here";
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
+    const section = {type:SECTIONTYPE.DASHBOARD};
+    history.pushState(section,"","");
+    loadSection(section);
     fillContentForDashboard();
     loadPlaylists();
     document.addEventListener("click", ()=>{
