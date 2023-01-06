@@ -1,5 +1,5 @@
 import { fetchRequest } from "../api";
-import { ENDPOINT, logout, SECTION, SECTIONTYPE } from "../comman";
+import { ENDPOINT, logout, SECTIONTYPE } from "../comman";
 // console.log(logout())
 
 
@@ -44,7 +44,7 @@ const onPlaylistItemClicked = (event)=>{
 }
 
 const loadPlaylist = async (endpoint, elementId)=>{
-    const {playlists:{items}} = await fetchRequest(endpoint) 
+    const {playlists:{items}} = await fetchRequest(endpoint)
     const playlistItemsSection = document.querySelector(`#${elementId}`);
      
    
@@ -91,7 +91,7 @@ const fillContentForDashboard = ()=>{
 const loadSection = (section)=>{
     if(section.type === SECTIONTYPE.DASHBOARD){
         fillContentForDashboard();
-        loadPlaylist();
+        loadPlaylists();
     }else{
         //load the element for playlist
         const pageontaint = document.querySelector("#page-containt");
