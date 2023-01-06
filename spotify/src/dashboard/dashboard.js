@@ -65,6 +65,7 @@ const loadPlaylist = async (endpoint, elementId)=>{
 
 const loadPlaylists = ()=>{
     loadPlaylist(ENDPOINT.featuredPlaylist, "featured-playlist-items")
+    loadPlaylist(ENDPOINT.toplists, "top-playlist-items")
 }
 
 document.addEventListener("DOMContentLoaded", () => {
