@@ -47,7 +47,7 @@ const loadPlaylist = async (endpoint, elementId)=>{
    
     for(let { name, description, images, id } of items){
         const playlistItem = document.createElement("section");
-        playlistItem.className = "bg-black-secondary rounded p-4 border-2 hover:cursor-pointer";
+        playlistItem.className = "bg-black-secondary rounded p-4 hover:cursor-pointer hover:bg-light-black";
         playlistItem.id = id;
         playlistItem.setAttribute("data-type", "playlist");
         playlistItem.addEventListener("click", onPlaylistItemClicked)
@@ -68,8 +68,26 @@ const loadPlaylists = ()=>{
     loadPlaylist(ENDPOINT.toplists, "top-playlist-items")
 }
 
+const fillContentForDashboard = ()=>{
+    const pageontaint = document.querySelector("#page-containt");
+    const playlistMap = new Map([["featured","featured-playlist-items"],["top playlists","top-playlist-items"]]);
+    let innerHTML = "";
+    for(let [type, id] of playlistMap){
+        innerHTML +=`
+        <article class="p-4">
+        <h1 class="text-2xl mb-4 font-bold capitalize">${type}</h1>
+        <section id="${id}" class="featured-songs grid grid-cols-auto-fill-cards gap-4">
+
+        </section>
+    </article>
+`
+    }
+    pageontaint.innerHTML = innerHTML;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
+    fillContentForDashboard();
     loadPlaylists();
     document.addEventListener("click", ()=>{
         const profileMenu = document.querySelector("#profile-menu")
