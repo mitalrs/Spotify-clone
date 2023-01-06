@@ -37,7 +37,7 @@ const loadUserProfile = async () => {
 }
 
 const onPlaylistItemClicked = (event)=>{
-    console.log(event.target);
+    console.log(event.target.parentNode);
 }
 
 const loadfeaturedPlaylist = async ()=>{
@@ -47,13 +47,13 @@ const loadfeaturedPlaylist = async ()=>{
    
     for(let { name, description, images, id } of items){
         const playlistItem = document.createElement("section");
-        playlistItem.className = "rounded p-4 border-2";
+        playlistItem.className = "rounded p-4 border-2 hover:cursor-pointer";
         playlistItem.id = id;
         playlistItem.setAttribute("data-type", "playlist");
         playlistItem.addEventListener("click", onPlaylistItemClicked)
 
         const [{ url:imageurl }] = images;
-        playlistItem.innerHTML = `<img src="${imageurl}" alt="${name}">
+        playlistItem.innerHTML = `<img src="${imageurl}" alt="${name}" class="rounded mb-2 object-contain shadow" />
             <h2 class="text-sm">${name}</h2>
             <h3 class="text-sx">${description}</h3>`;
 
