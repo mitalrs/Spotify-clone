@@ -47,15 +47,15 @@ const loadPlaylist = async (endpoint, elementId)=>{
    
     for(let { name, description, images, id } of items){
         const playlistItem = document.createElement("section");
-        playlistItem.className = "rounded p-4 border-2 hover:cursor-pointer";
+        playlistItem.className = "bg-black-secondary rounded p-4 border-2 hover:cursor-pointer";
         playlistItem.id = id;
         playlistItem.setAttribute("data-type", "playlist");
         playlistItem.addEventListener("click", onPlaylistItemClicked)
 
         const [{ url:imageurl }] = images;
         playlistItem.innerHTML = `<img src="${imageurl}" alt="${name}" class="rounded mb-2 object-contain shadow" />
-            <h2 class="text-sm">${name}</h2>
-            <h3 class="text-sx">${description}</h3>`;
+            <h2 class="text-base font-semibold mb-4 truncate">${name}</h2>
+            <h3 class="text-sm text-secondary line-clamp-2">${description}</h3>`;
 
 
             playlistItemsSection.appendChild(playlistItem);
