@@ -40,9 +40,9 @@ const onPlaylistItemClicked = (event)=>{
     console.log(event.target.parentNode);
 }
 
-const loadfeaturedPlaylist = async ()=>{
-    const {playlists:{items}} = await fetchRequest(ENDPOINT.featuredPlaylist) 
-    const playlistItemsSection = document.querySelector('#featured-playlist-items');
+const loadPlaylist = async (endpoint, elementId)=>{
+    const {playlists:{items}} = await fetchRequest(endpoint) 
+    const playlistItemsSection = document.querySelector(`#${elementId}`);
      
    
     for(let { name, description, images, id } of items){
@@ -63,9 +63,13 @@ const loadfeaturedPlaylist = async ()=>{
     }
 }
 
+const loadPlaylists = ()=>{
+    loadPlaylist(ENDPOINT.featuredPlaylist, "featured-playlist-items")
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
-    loadfeaturedPlaylist();
+    loadPlaylists();
     document.addEventListener("click", ()=>{
         const profileMenu = document.querySelector("#profile-menu")
         if(!profileMenu.classList.contains("hidden")){
