@@ -124,4 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
             header.classList.add("bg-transparent");
         }
     })
+    window.addEventListener("popstate",(event)=>{
+        loadSection(event.state);
+    })
 })
