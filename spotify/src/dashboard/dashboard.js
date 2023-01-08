@@ -38,7 +38,7 @@ const loadUserProfile = async () => {
 
 const onPlaylistItemClicked = (event, id)=>{
     console.log(event.target.parentNode);
-    const section = { type: SECTIONTYPE.PLAYLIST }
+    const section = { type: SECTIONTYPE.PLAYLIST, playlist: id }
     history.pushState(section,"",`playlist/${id}`);
     loadSection(section);
 }
@@ -53,7 +53,7 @@ const loadPlaylist = async (endpoint, elementId)=>{
         playlistItem.className = "bg-black-secondary rounded p-4 hover:cursor-pointer hover:bg-light-black";
         playlistItem.id = id;
         playlistItem.setAttribute("data-type", "playlist");
-        playlistItem.addEventListener("click",(event, id)=> onPlaylistItemClicked(event, id))
+        playlistItem.addEventListener("click",(event)=> onPlaylistItemClicked(event, id))
 
         const [{ url:imageurl }] = images;
         playlistItem.innerHTML = `<img src="${imageurl}" alt="${name}" class="rounded mb-2 object-contain shadow" />
@@ -88,14 +88,20 @@ const fillContentForDashboard = ()=>{
     pageontaint.innerHTML = innerHTML;
 }
 
+const fillContentForPlaylist = async(playlistId)=>{
+    const playlist = await fetchRequest(`${ENDPOINT.playlist}/${playlistId}`)
+    const pageontaint = document.querySelector("#page-containt");
+    pageontaint.innerHTML = ""
+    console.log(playlist)
+}
+
 const loadSection = (section)=>{
     if(section.type === SECTIONTYPE.DASHBOARD){
-        fillContentForDashboard();
-        loadPlaylists();
-    }else{
+        // fillContentForDashboard();
+        // loadPlaylists();
+    }else if(section.type === SECTIONTYPE.PLAYLIST){
         //load the element for playlist
-        const pageontaint = document.querySelector("#page-containt");
-        pageontaint.innerHTML = "playlist to be loaded here";
+        fillContentForPlaylist(section.playlist)
     }
 }
 
