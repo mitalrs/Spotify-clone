@@ -36,10 +36,10 @@ const loadUserProfile = async () => {
     diplayNameElement.textContent = diplayName;
 }
 
-const onPlaylistItemClicked = (event)=>{
+const onPlaylistItemClicked = (event, id)=>{
     console.log(event.target.parentNode);
     const section = { type: SECTIONTYPE.PLAYLIST }
-    history.pushState(section,"","playlist");
+    history.pushState(section,"",`playlist/${id}`);
     loadSection(section);
 }
 
@@ -53,7 +53,7 @@ const loadPlaylist = async (endpoint, elementId)=>{
         playlistItem.className = "bg-black-secondary rounded p-4 hover:cursor-pointer hover:bg-light-black";
         playlistItem.id = id;
         playlistItem.setAttribute("data-type", "playlist");
-        playlistItem.addEventListener("click", onPlaylistItemClicked)
+        playlistItem.addEventListener("click",(event, id)=> onPlaylistItemClicked(event, id))
 
         const [{ url:imageurl }] = images;
         playlistItem.innerHTML = `<img src="${imageurl}" alt="${name}" class="rounded mb-2 object-contain shadow" />
@@ -104,8 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const section = {type:SECTIONTYPE.DASHBOARD};
     history.pushState(section,"","");
     loadSection(section);
-    fillContentForDashboard();
-    loadPlaylists();
     document.addEventListener("click", ()=>{
         const profileMenu = document.querySelector("#profile-menu")
         if(!profileMenu.classList.contains("hidden")){
