@@ -88,17 +88,71 @@ const fillContentForDashboard = ()=>{
     pageontaint.innerHTML = innerHTML;
 }
 
+const loadPlaylistTracks = ({tracks})=>{
+    const trackSections = document.querySelector('#tracks');
+
+    // <section class="track items-center justify-items-start grid grid-cols-[50px_2fr_1fr_50px] gap-4 rounded-md hover:bg-light-black text-secondary">
+    //                         <p class="justify-self-center">1</p>
+    //                         <section class="grid grid-cols-2 gap-2">
+    //                             <img class="h-8 w-8" src="" alt="">
+    //                             <article class="flex flex-col gap-1">
+    //                                 <h2 class="text-white text-xl">song</h2>
+    //                                 <p class="text-sm">artists</p>
+    //                             </article>
+    //                         </section>
+    //                         <p>Album</p>
+    //                         <p>1:36</p>
+    //                     </section>
+    for(let trackItem of tracks.items){
+        let {id, artists, name, album, duration_ms:duration} = trackItem.track;
+        console.log(trackItem.tracks)
+        let track = document.createElement("section");
+        track.className = "track p-1 items-center justify-items-start grid grid-cols-[50px_2fr_1fr_50px] gap-4 rounded-md hover:bg-light-black text-secondary";
+        let image = album.images.find(img=> img.height === 64);
+        track.innerHTML = `
+        <p class="justify-self-center">1</p>
+                            <section class="grid grid-cols-2 gap-2">
+                                 <img class="h-8 w-8" src="${image.url}" alt="${name}">
+                                 <article class="flex flex-col gap-1">
+                                    <h2 class="text-white text-xl">${name}</h2>
+                                    <p class="text-sm">${Array.from(artists, artist=> artist.name).join(", ")}</p>
+                                </article>
+                            </section>
+                            <p>${album.name}</p>
+                            <p>${duration}</p>`;
+                            trackSections.appendChild(track);
+    }
+
+}
+
 const fillContentForPlaylist = async(playlistId)=>{
     const playlist = await fetchRequest(`${ENDPOINT.playlist}/${playlistId}`)
     const pageontaint = document.querySelector("#page-containt");
-    pageontaint.innerHTML = ""
+    pageontaint.innerHTML = `
+    <header class="px-8">
+        <nav>
+            <ul class="grid grid-cols-[50px_2fr_1fr_50px] gap-4 text-secondary">
+                <li class="justify-self-center">#</li>
+                <li>Title</li>
+                <li>Album</li>
+                <li>timer</li>
+            </ul>
+        </nav>
+   </header>
+   <section id="tracks" class="px-8">
+   </section>`
+
+
+ 
+   loadPlaylistTracks(playlist)
+  
     console.log(playlist)
 }
 
 const loadSection = (section)=>{
     if(section.type === SECTIONTYPE.DASHBOARD){
-        // fillContentForDashboard();
-        // loadPlaylists();
+        fillContentForDashboard();
+        loadPlaylists();
     }else if(section.type === SECTIONTYPE.PLAYLIST){
         //load the element for playlist
         fillContentForPlaylist(section.playlist)
